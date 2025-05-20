@@ -1,6 +1,8 @@
-package com.desabisc.guide.camel.processeg.egc;
+package com.desabisc.guide.camel.bean.egc;
 
 import org.apache.camel.builder.RouteBuilder;
+
+// Using the Message Translator EIP, using beans
 
 public class MessageTranslatorBeanRouteBuilder extends RouteBuilder {
     @Override
@@ -13,13 +15,15 @@ public class MessageTranslatorBeanRouteBuilder extends RouteBuilder {
             .log("Translated message: ${body}")
             .to("file:src/data/output");
             
+        // TODO: this is a consumer, it requires that a producer triggers a call to this consumer
         // Alternative route using direct method reference to the bean
         from("direct:lowerCaseTranslator")
             .log("Received message for lowercase translation: ${body}")
             .bean(MessageTranslator.class, "toLowerCase")
             .log("Lowercase translated message: ${body}")
             .to("mock:result");
-            
+
+        // TODO: this is a consumer, it requires that a producer triggers a call to this consumer
         // Using method selection
         from("direct:dynamicTranslator")
             .log("Received message for dynamic translation: ${body}")
@@ -27,7 +31,8 @@ public class MessageTranslatorBeanRouteBuilder extends RouteBuilder {
             .bean("messageTranslator", "method:${header.translationType}")
             .log("Dynamically translated message: ${body}")
             .to("mock:result");
-            
+
+        // TODO: this is a consumer, it requires that a producer triggers a call to this consumer
         // Using bean as part of a content-based router
         from("direct:conditionalTranslate")
             .choice()

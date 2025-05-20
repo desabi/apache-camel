@@ -1,4 +1,4 @@
-package com.desabisc.guide.camel.processeg.egc;
+package com.desabisc.guide.camel.bean.egc;
 
 /**
  * A simple Message Translator implemented as a Bean

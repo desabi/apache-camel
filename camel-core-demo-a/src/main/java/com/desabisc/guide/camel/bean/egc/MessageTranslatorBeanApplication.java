@@ -1,4 +1,4 @@
-package com.desabisc.guide.camel.processeg.egc;
+package com.desabisc.guide.camel.bean.egc;
 
 import com.desabisc.guide.camel.processeg.egb.MessageTranslatorRouteBuilder;
 import org.apache.camel.CamelContext;

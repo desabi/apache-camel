@@ -1,7 +1,6 @@
 package com.desabisc.guide.camel.processeg.egb;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+// Using the Message Translator EIP, using a Processor
 import org.apache.camel.builder.RouteBuilder;
 
 public class MessageTranslatorRouteBuilder extends RouteBuilder {
