@@ -16,7 +16,7 @@ public class MessageTranslatorBeanApplication {
         CamelContext context = new DefaultCamelContext(registry);
 
         // Add routes
-        context.addRoutes(new MessageTranslatorRouteBuilder());
+        context.addRoutes(new MessageTranslatorBeanRouteBuilder());
 
         // Start the Camel context
         context.start();

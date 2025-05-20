@@ -14,23 +14,30 @@ public class MessageTranslatorBeanRouteBuilder extends RouteBuilder {
             .bean("messageTranslator", "toUpperCase")
             .log("Translated message: ${body}")
             .to("file:src/data/output");
-            
+
+        from("timer:lowerCase?period=4000")
+            .log("Entering lower case translator...")
+            .setBody(constant("HELLO WORLD WITH CAMEL"))
+            .to("direct:lowerCaseTranslator")
+            .end();
+
         // TODO: this is a consumer, it requires that a producer triggers a call to this consumer
         // Alternative route using direct method reference to the bean
         from("direct:lowerCaseTranslator")
             .log("Received message for lowercase translation: ${body}")
             .bean(MessageTranslator.class, "toLowerCase")
             .log("Lowercase translated message: ${body}")
-            .to("mock:result");
+                .end();
+            //.to("mock:result");
 
         // TODO: this is a consumer, it requires that a producer triggers a call to this consumer
         // Using method selection
-        from("direct:dynamicTranslator")
+        /*from("direct:dynamicTranslator")
             .log("Received message for dynamic translation: ${body}")
             // Use header to specify which method to call
             .bean("messageTranslator", "method:${header.translationType}")
             .log("Dynamically translated message: ${body}")
-            .to("mock:result");
+            .to("mock:result");*/
 
         // TODO: this is a consumer, it requires that a producer triggers a call to this consumer
         // Using bean as part of a content-based router
