@@ -1,6 +1,5 @@
 package com.desabisc.guide.camel.bean.egb;
 
-import com.desabisc.guide.camel.processeg.ProcessRouterEg;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 

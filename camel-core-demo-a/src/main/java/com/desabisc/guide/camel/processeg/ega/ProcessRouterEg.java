@@ -1,4 +1,4 @@
-package com.desabisc.guide.camel.processeg;
+package com.desabisc.guide.camel.processeg.ega;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;

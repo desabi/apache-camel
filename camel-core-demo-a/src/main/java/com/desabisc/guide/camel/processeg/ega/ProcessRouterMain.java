@@ -1,6 +1,5 @@
-package com.desabisc.guide.camel.processeg;
+package com.desabisc.guide.camel.processeg.ega;
 
-import com.desabisc.guide.camel.MyMainApp.MyRouteBuilder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 
