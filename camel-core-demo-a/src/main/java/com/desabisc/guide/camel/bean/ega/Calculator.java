@@ -1,4 +1,4 @@
-package com.desabisc.guide.camel.bean;
+package com.desabisc.guide.camel.bean.ega;
 
 public class Calculator {
   public Double sum(Double numberA, Double numberB) {

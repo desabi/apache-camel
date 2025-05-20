@@ -1,4 +1,4 @@
-package com.desabisc.guide.camel.bean;
+package com.desabisc.guide.camel.bean.ega;
 
 // The bean class that our route will use
   public class MessageGenerator {

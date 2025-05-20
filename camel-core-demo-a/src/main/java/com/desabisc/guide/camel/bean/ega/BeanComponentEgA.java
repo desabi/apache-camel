@@ -1,4 +1,4 @@
-package com.desabisc.guide.camel.bean;
+package com.desabisc.guide.camel.bean.ega;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.CamelContext;
