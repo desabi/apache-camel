@@ -16,7 +16,7 @@ public class ExceptionHandlingMain {
     context.start();
 
     // Keep the application running
-    Thread.sleep(40000); // Run for 40 seconds
+    Thread.sleep(60000); // Run for 60 seconds
 
     // Shutdown the context
     context.stop();
