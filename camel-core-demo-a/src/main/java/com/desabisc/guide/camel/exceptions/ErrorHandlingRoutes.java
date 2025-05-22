@@ -24,7 +24,7 @@ public class ErrorHandlingRoutes extends RouteBuilder {
         .to("direct:result");*/
 
     // Route 2: OnException error handling with specific exception types
-    from("timer://onExceptionTimer?period=15000&repeatCount=4")
+    /*from("timer://onExceptionTimer?period=15000&repeatCount=4")
         .routeId("on-exception-route")
         .onException(IllegalArgumentException.class)
           .handled(true)
@@ -40,7 +40,21 @@ public class ErrorHandlingRoutes extends RouteBuilder {
         .end()
         .log("Processing message with specific exception handling...")
         .process(new SpecificExceptionProcessor())
-        .to("direct:result");
+        .to("direct:result");*/
+
+    // Route 3: Dead Letter Channel with redelivery policy
+    from("timer://deadLetterTimer?period=20000&repeatCount=2")
+            .routeId("dead-letter-route")
+            .errorHandler(deadLetterChannel("direct:deadLetterQueue")
+                    .maximumRedeliveries(2)
+                    .redeliveryDelay(1000)
+                    .backOffMultiplier(2)
+                    .maximumRedeliveryDelay(5000)
+                    .retryAttemptedLogLevel(LoggingLevel.WARN)
+                    .retriesExhaustedLogLevel(LoggingLevel.ERROR))
+            .log("Processing message with dead letter channel...")
+            .process(new FailingProcessor())
+            .to("direct:result");
 
     from("direct:illegalArgumentHandler")
         .routeId("illegal-argument-handler")
