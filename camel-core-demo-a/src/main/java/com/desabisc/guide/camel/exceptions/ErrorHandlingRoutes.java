@@ -43,7 +43,7 @@ public class ErrorHandlingRoutes extends RouteBuilder {
         .to("direct:result");*/
 
     // Route 3: Dead Letter Channel with redelivery policy
-    from("timer://deadLetterTimer?period=20000&repeatCount=2")
+    /*from("timer://deadLetterTimer?period=20000&repeatCount=2")
             .routeId("dead-letter-route")
             .errorHandler(deadLetterChannel("direct:deadLetterQueue")
                     .maximumRedeliveries(2)
@@ -54,9 +54,23 @@ public class ErrorHandlingRoutes extends RouteBuilder {
                     .retriesExhaustedLogLevel(LoggingLevel.ERROR))
             .log("Processing message with dead letter channel...")
             .process(new FailingProcessor())
-            .to("direct:result");
+            .to("direct:result");*/
 
-    from("direct:illegalArgumentHandler")
+    // Route 4: File processing with error handling
+    from("file:src/data/input?noop=true&include=.*\\.txt$")
+            .routeId("file-processing-route")
+            .onException(Exception.class)
+              .handled(true)
+              .log(LoggingLevel.ERROR, "Error processing file: ${exception.message}")
+              .setHeader("ErrorMessage", simple("${exception.message}"))
+              .setHeader("OriginalFileName", simple("${header.CamelFileName}"))
+              .to("file:logs/errors?fileName=error-${date:now:yyyyMMdd-HHmmss}-${header.OriginalFileName}")
+            .end()
+            .log("Processing file: ${header.CamelFileName}")
+            .process(new FileProcessingProcessor())
+            .to("file:src/data/output?fileName=processed-${header.CamelFileName}");
+
+    /*from("direct:illegalArgumentHandler")
         .routeId("illegal-argument-handler")
         .log("Handling illegal argument error")
         .to("direct:errorLog");
@@ -74,6 +88,6 @@ public class ErrorHandlingRoutes extends RouteBuilder {
     // Result and logging routes
     from("direct:result")
         .routeId("result-route")
-        .log("Final result: ${body}");
+        .log("Final result: ${body}");*/
   }
 }
