@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Logback configuration for Apache Camel Message Filter Pattern demonstration
+    This configuration provides clear visibility into the message filtering process
+    by controlling log levels and formatting for different components.
+-->
+<configuration>
+
+    <!-- Console appender for real-time output -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--
+                Custom log pattern for better readability:
+                - Timestamp with milliseconds for precise timing
+                - Thread name to track concurrent processing
+                - Logger name (shortened) for component identification
+                - Log level with color coding
+                - Formatted message
+            -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File appender for persistent logging -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/message-filter-demo.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        Logger configuration for Apache Camel components
+        Set to INFO level to see route execution and message flow
+        without overwhelming debug information
+    -->
+    <logger name="org.apache.camel" level="INFO" />
+
+    <!--
+        Specific logger for route execution to clearly see
+        when messages pass through or are filtered out
+    -->
+    <logger name="org.apache.camel.processor" level="INFO" />
+
+    <!--
+        Timer component logger - reduced to WARN to minimize noise
+        from periodic timer triggers
+    -->
+    <logger name="org.apache.camel.component.timer" level="WARN" />
+
+    <!--
+        Application-specific logger set to DEBUG to see all
+        message filtering decisions and processing steps
+    -->
+    <logger name="com.example.camel" level="DEBUG" />
+
+    <!-- Root logger configuration -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
