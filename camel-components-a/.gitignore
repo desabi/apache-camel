@@ -3,6 +3,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/input
+/output
+/error
+/generated
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
