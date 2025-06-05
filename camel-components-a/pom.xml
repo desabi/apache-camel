@@ -47,6 +47,17 @@
             <version>4.11.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rest</artifactId>
+            <version>4.11.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.camel/camel-undertow -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-undertow</artifactId>
+            <version>4.11.0</version>
+        </dependency>
     </dependencies>
 
 </project>
