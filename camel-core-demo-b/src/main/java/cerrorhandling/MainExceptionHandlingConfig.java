@@ -1,4 +1,4 @@
-package errorhandling;
+package cerrorhandling;
 
 import org.apache.camel.builder.RouteConfigurationBuilder;
 
