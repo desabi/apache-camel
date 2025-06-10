@@ -23,9 +23,15 @@ public class VariablesMainApplication {
             //camelContext.setVariable("myVariable", "My Variable Value");
 
             // handle custom variable
-            camelContext.addRoutes(new VariableCustomScopeRoute());
+            //camelContext.addRoutes(new VariableCustomScopeRoute());
             // add the variable repository to the camel context registry
-            camelContext.getRegistry().bind(VariableRepositoryEg.ID, new VariableRepositoryEg());
+            //camelContext.getRegistry().bind(VariableRepositoryEg.ID, new VariableRepositoryEg());
+
+            // use variable receive
+            //camelContext.addRoutes(new VariableReceiveEgRoute());
+
+            // use variable send
+            camelContext.addRoutes(new VariableSendRouteEg());
 
             camelContext.start();
             Thread.sleep(TimeUnit.SECONDS.toMillis(20));
