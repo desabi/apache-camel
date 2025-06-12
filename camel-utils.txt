@@ -1,0 +1,2 @@
+// Keep the application running
+Thread.sleep(TimeUnit.SECONDS.toMillis(30)); // Run for 30 seconds
