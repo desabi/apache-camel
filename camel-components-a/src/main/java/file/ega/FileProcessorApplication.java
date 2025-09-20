@@ -11,24 +11,28 @@ public class FileProcessorApplication {
     private static final Logger logger = LoggerFactory.getLogger(FileProcessorApplication.class);
 
     public static void main(String[] args) {
-        CamelContext camelContext = new DefaultCamelContext();
+      try (CamelContext camelContext = new DefaultCamelContext()) {
 
         try {
-            // Add the route to the context
-            camelContext.addRoutes(new FileProcessingRoute());
+          // Add the route to the context
+          camelContext.addRoutes(new FileProcessingRoute());
 
-            // Start the context
-            camelContext.start();
-            logger.info("Camel Context started successfully");
+          // Start the context
+          camelContext.start();
+          logger.info("Camel Context started successfully");
 
-            // Keep the application running
-            Thread.sleep(TimeUnit.SECONDS.toMillis(30)); // Run for 30 seconds
+          // Keep the application running
+          Thread.sleep(TimeUnit.SECONDS.toMillis(30)); // Run for 30 seconds
         } catch (Exception e) {
-            logger.error("Error running Camel application", e);
+          logger.error("Error running Camel application", e);
         } finally {
-            // Properly shutdown the Camel context
-            camelContext.stop();
-            logger.info("Camel Context stopped. Application terminated.");
+          // Properly shutdown the Camel context
+          camelContext.stop();
+          logger.info("Camel Context stopped. Application terminated.");
         }
+      } catch (Exception e) {
+
+        throw new RuntimeException(e);
+      }
     }
 }
