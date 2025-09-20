@@ -8,8 +8,9 @@ public class TryCatchFinallyRoute extends RouteBuilder {
   @Override
   public void configure() throws Exception {
 
+    // Basic error handling with try-catch
     from("timer://basicErrorTimer?period=10000&repeatCount=5")
-        .routeId("try-catch-finally-example")
+        .routeId("try-catch-finally-route")
         .log("Processing message in basic error route...")
         .doTry()
           .process(new UnreliableProcessor())
@@ -27,5 +28,4 @@ public class TryCatchFinallyRoute extends RouteBuilder {
         .routeId("result-route")
         .log(LoggingLevel.INFO, "Final result: ${body}");
   }
-
 }
