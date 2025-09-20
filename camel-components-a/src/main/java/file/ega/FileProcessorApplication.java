@@ -31,7 +31,6 @@ public class FileProcessorApplication {
           logger.info("Camel Context stopped. Application terminated.");
         }
       } catch (Exception e) {
-
         throw new RuntimeException(e);
       }
     }
