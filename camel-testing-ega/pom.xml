@@ -18,26 +18,69 @@
 
 	<properties>
 		<java.version>21</java.version>
+		<camel.springboot.starter.version>4.14.0</camel.springboot.starter.version>
+
+		<!-- Maven Compiler settings -->
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<!-- Ensures both source and target compatibility -->
+		<!-- You could technically just use this property and omit source + target, but many projects
+		     keep all three for clarity and backward compatibility with older Maven plugins.
+		     but many projects keep all three for clarity and backward compatibility with older
+		     Maven plugins.-->
+		<maven.compiler.release>${java.version}</maven.compiler.release>
+
+		<!-- Encoding - CRITICAL for cross-platform builds -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencies>
+		<!-- Apache Camel Spring Boot Starter (includes spring-boot-starter) and Camel dependencies -->
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-spring-boot-starter</artifactId>
-			<version>4.14.0</version>
+			<version>${camel.springboot.starter.version}</version>
 		</dependency>
+		<!-- Spring Boot Test Starter (includes JUnit, Mockito, AssertJ, etc.) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Camel Test Spring JUnit5 (for testing Camel routes with Spring) -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring-junit5</artifactId>
+			<version>${camel.springboot.starter.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Compiler plugin: Java version handling -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<!-- <release> is the preferred option (since Java 9). It ensures compilation against
+					     the correct standard library of Java 21. -->
+					<release>${java.version}</release>
+					<!-- Optional: keep source/target for clarity -->
+					<!-- <source>${java.version}</source> -->
+					<!-- <target>${java.version}</target> -->
+					<!-- <source> and <target> are optional if <release> is defined — but many teams keep
+					     them for readability and IDE compatibility. -->
+				</configuration>
+			</plugin>
+
+			<!-- Spring Boot plugin: packaging and running -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- Uses the same version defined in the parent section -->
 			</plugin>
 		</plugins>
 	</build>
